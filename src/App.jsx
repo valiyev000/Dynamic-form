@@ -43,3 +43,4 @@ function App() {
 }
 
 export default App
+//! duymenin stylinda qalmisam // sonra formik duzletmek lazimdi
