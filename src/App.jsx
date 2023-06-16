@@ -6,14 +6,15 @@ import FourthForm from './components/FourthForm'
 import ThirdForm from './components/ThirdForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import ThanksModal from './components/ThanksModal'
 
 
 
 function App() {
 
-  const [pageCount, setPageCount] = useState(1)
+  const [pageCount, setPageCount] = useState(1) //formun hansi hissesinde oldugumuzu teyin edir. PageCount'un deyisimine uygun olaraq componentlerden yalniz biri acig qalir
 
-  const formValidation = Yup.object().shape(
+  const formValidation = Yup.object().shape( //YUP syntax'ina uygun yigilmis validation
     {
       name: Yup.string("*Only text").required("*Required").min(5, "*Min 5 letter required"),
       email: Yup.string("*Only text").required("*Required").email("*Not an email"),
@@ -24,7 +25,7 @@ function App() {
     }
   )
 
-  const formik = useFormik(
+  const formik = useFormik( //useFormikin syntax'ina uygun yigilmis inputlarin toplandigi section
     {
       initialValues: {
         name: '',
@@ -34,25 +35,33 @@ function App() {
         services: [],
         budget: ''
       },
-      validateOnMount: true,
+      validateOnMount: true, //page acilan kimi validation'u yoxlayir
       onSubmit: (e) => {
-        pageCount === 4 && console.log(e)
-      },
-      validationSchema: formValidation
+        modalStatus && console.log(e) //eger ekranda Thanksmodal gorsenibse demeli user formu bitirmisdir. Ve netice console'a yazilmisdir. 
+      },                             // Cunki modal acilibsa modalStatus true qaytaracag ve netice console da gorsenecek
+      validationSchema: formValidation //YUP'dan gelen validation'u import edirik
     }
   )
 
   console.log(pageCount, "App render");
 
-  const [erroredClick, setErroredClick] = useState(0)
+  const [erroredClick, setErroredClick] = useState(0) //hansi componentde olursan ol, hemin component'de "Next Step" button'nunun nece defe validation duzgun olmadan click olundugunu gosterir
 
-  useEffect(() => {
+  useEffect(() => { //yeni sehifeye kecid edilende errorCLicked 0'lanir
     setErroredClick(0)
   }, [pageCount])
 
+  const [modalStatus, setModalStatus] = useState(false) //ThanksModal komponentinin aciq olub olmadigini gosterir
 
+  useEffect(()=>{ //modalStatus deyisdikde ise dusur ve modalStatus true verdikde body'de scroll'u engelleyir
+    if (modalStatus) {
+      document.body.classList.add("overflowPrevent")
+    } else {
+      document.body.classList.remove("overflowPrevent")
+    }
+  },[modalStatus])
 
-
+  const [scrollPos, setScrollPos] = useState(window.scrollY) //modalin acilmasi ucun lazim olan top: "xxx"px deyerini assign edir
 
   return (
     <main>
@@ -83,22 +92,23 @@ function App() {
             className='prevBtn'
             style={{ visibility: (pageCount === 1 ? "hidden" : "visible") }}
             onClick={() => setPageCount((prev) => prev - 1)}
-          >
-            Previous Step
-          </button>
+          >Previous Step</button>
           <button
             onClick={
-              (pageCount === 1 && !(formik.errors.name || formik.errors.email || formik.errors.phone || formik.errors.company)) ? () => { setPageCount(2); setErroredClick((prev) => prev + 1) }
-                : (pageCount === 2 && formik.values.services.length !== 0) ? () => { setPageCount(3); setErroredClick((prev) => prev + 1) }
-                  : (pageCount === 3 && !formik.errors.budget) ? () => { setPageCount(4); setErroredClick((prev) => prev + 1) }
-                    : () => { console.log(null); setErroredClick((prev) => prev + 1) }
+              (pageCount === 1 && !(formik.errors.name || formik.errors.email || formik.errors.phone || formik.errors.company)) ? () => { setPageCount(2)}//1ci sehifedeki validation'lar duzgundurse pageCount 2 olur ve avtomatik 2ci component acilir
+                : (pageCount === 2 && formik.values.services.length !== 0) ? () => { setPageCount(3)} //2ci sehifedeki checkboxlardan azi 1i doludursa PageCount 3 olur
+                  : (pageCount === 3 && !formik.errors.budget) ? () => { setPageCount(4)}// eger budget'den 1i secilibse error yoxdur demekdir ve pageCount 4 olur. yeni sonuncu sehife acilir
+                  : pageCount === 4 ? ()=> {setModalStatus((prev)=>!prev); setScrollPos(window.scrollY)} //sonuncu sehifede next step yazisi Submit yazisina cevrilir. Click olunduqda modal'in statusunu true edir. belelikle modal ekranda gorsenir. Duzgun yerde acilmasi ucunde window.scrollY deyerini assign edir
+                    : () => setErroredClick((prev) => prev + 1) // yuxari scope'larin hecbiri dogru olmasa yalniz errorClick'in deyeri artir
             }
-            style={{ bottom: (pageCount === 4 ? "30px" : "-112px"), right: (pageCount === 4 ? "170px" : "-45px") }}
+            style={{ bottom: (pageCount === 4 ? "30px" : "-112px"), right: (pageCount === 4 ? "170px" : "-45px") }} // dorduncu component'de button'nun yeri deyisir
           >
             {pageCount === 4 ? "Submit" : "Next Step"}
+            {/* 4cu komponentde buttonun yazisi deyisir */}
           </button>
         </form>
       </div>
+      {modalStatus && <ThanksModal scrollPos={scrollPos} />}{/* modalStatus true'dursa ThanksModal ekranda gorsenir */}
     </main>
   )
 }

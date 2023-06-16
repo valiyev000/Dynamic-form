@@ -7,10 +7,6 @@ import webDesignIcon from '../images/webDesignIcon.svg'
 export default function SecondForm({ pageCount, formik, erroredClick}) {
     // console.log("SecondForm render");
 
-    
-
-    
-
 
     return (
         <section className='secondPage page' style={{display:pageCount === 2 ? "block" : "none"}}>
@@ -78,6 +74,8 @@ export default function SecondForm({ pageCount, formik, erroredClick}) {
                     </label>
                 </div>
                 <small className="secondError">{erroredClick >= 1 && formik.touched.services && formik.errors.services && formik.errors.services}</small>
+                {/* eger next Step'i basmisiqsa yeni componentdeyik(meselen ele bu component'de)... yeni component'de kecilen zaman errorClick 0'lanirdi. Bu sebebden  */}
+                {/* error gorsenmeyecek. eger yeniden nextStep button'nuna basilacaqsa ve nese duz olmayacagsa error gorsenecek. Cunki yanlis olduqda basilan button errorClicked'in deyerini 1 vahid artirir */}
             </div>
         </section>
     )

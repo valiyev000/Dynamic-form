@@ -8,7 +8,7 @@ export default function FirstForm({ pageCount, formik}) {
 
     console.log("FirstForm render");
 
-    return (
+    return (// pageCount 1dirse bu component'in displayi block eks halda none olacaq. 4 component'in 4ude bu formada yazilib
         <section className='firstPage page' style={{ display: pageCount === 1 ? "block" : "none" }}>
             <div className="header">Contact details</div>
             <div className="description">Lorem ipsum dolor sit amet consectetur adipisc.</div>
@@ -18,17 +18,18 @@ export default function FirstForm({ pageCount, formik}) {
                     <div className="inputDiv">
                         <input
                             type="text"
-                            name="name"
+                            name="name" //name'ler formikdeki initialValues'deki key'lerle uzlasmalidirlar
                             id="name"
                             placeholder='John Carter'
-                            value={formik.values.name}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
+                            value={formik.values.name} // standart formik syntax'i
+                            onChange={formik.handleChange}  // standart formik syntax'i
+                            onBlur={formik.handleBlur}  // standart formik syntax'i
                         />
                         <div className="imgDiv">
                             <img src={nameIcon} alt="nameIcon.svg" />
                         </div>
                         <small className="errorMessage">{formik.touched.name && formik.errors.name && formik.errors.name}</small>
+                        {/* eger error olarsa small tag'inin icinde gorsenecek */}
                     </div>
                 </div>
                 <div className="flexElement">
