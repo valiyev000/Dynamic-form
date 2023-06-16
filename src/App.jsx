@@ -20,7 +20,7 @@ function App() {
       phone: Yup.string("*Not a number").required("*Required").min(10, "*Min 10").max(10, "Max 10"),
       company: Yup.string("*Only text").required("*Required"),
       services: Yup.array().min(1, '*You must select at least one.'),
-      budget: Yup.string().required('Please select an option.')
+      budget: Yup.string().required('*Please select an option.')
     }
   )
 
@@ -36,7 +36,7 @@ function App() {
       },
       validateOnMount: true,
       onSubmit: (e) => {
-        console.log(e)
+        pageCount === 4 && console.log(e)
       },
       validationSchema: formValidation
     }
@@ -77,12 +77,12 @@ function App() {
         <form action="#" onSubmit={formik.handleSubmit} className='dynamicWindow'>
           <FirstForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
           <SecondForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} erroredClick={erroredClick} />
-          <ThirdForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
+          <ThirdForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} erroredClick={erroredClick} />
           <FourthForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
           <button
             className='prevBtn'
-            style={{visibility:(pageCount===1 ? "hidden" : "visible")}}
-            onClick={()=>setPageCount((prev)=>prev - 1)}
+            style={{ visibility: (pageCount === 1 ? "hidden" : "visible") }}
+            onClick={() => setPageCount((prev) => prev - 1)}
           >
             Previous Step
           </button>
@@ -90,13 +90,15 @@ function App() {
             onClick={
               (pageCount === 1 && !(formik.errors.name || formik.errors.email || formik.errors.phone || formik.errors.company)) ? () => { setPageCount(2); setErroredClick((prev) => prev + 1) }
                 : (pageCount === 2 && formik.values.services.length !== 0) ? () => { setPageCount(3); setErroredClick((prev) => prev + 1) }
-                  : () => { console.log(null); setErroredClick((prev) => prev + 1) }
-            }>
-            Next Step
+                  : (pageCount === 3 && !formik.errors.budget) ? () => { setPageCount(4); setErroredClick((prev) => prev + 1) }
+                    : () => { console.log(null); setErroredClick((prev) => prev + 1) }
+            }
+            style={{ bottom: (pageCount === 4 ? "30px" : "-112px"), right: (pageCount === 4 ? "170px" : "-45px") }}
+          >
+            {pageCount === 4 ? "Submit" : "Next Step"}
           </button>
         </form>
       </div>
-
     </main>
   )
 }

@@ -8,12 +8,6 @@ export default function FirstForm({ pageCount, formik}) {
 
     console.log("FirstForm render");
 
-
-
-
-    
-
-
     return (
         <section className='firstPage page' style={{ display: pageCount === 1 ? "block" : "none" }}>
             <div className="header">Contact details</div>
