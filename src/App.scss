@@ -68,6 +68,7 @@ main {
         }
         .dynamicWindow{
             transition: 0.3s all ease-in-out;
+            position: relative;
             .page{
                 width: 100%;
                 height: 100%;
@@ -91,7 +92,6 @@ main {
                     justify-content: space-between;
                     flex-wrap: wrap;
                     flex-shrink: 0;
-                    position: relative;
                     .flexElement{
                         width: 47%;
                         margin-bottom: 34px;
@@ -137,20 +137,6 @@ main {
                             }
                         }
                     }
-                    >button{
-                        position: absolute;
-                        background: #4A3AFF;
-                        box-shadow: 0px 3px 12px rgba(74, 58, 255, 0.18);
-                        border-radius: 56px;
-                        bottom: -112px;
-                        right: -45px;
-                        width: 165px;
-                        height: 50px;
-                        font-weight: 700;
-                        font-size: 18px;
-                        line-height: 20px;
-                        color: #FFFFFF;
-                    }
                 }
             }
             .secondPage{
@@ -173,6 +159,7 @@ main {
                     justify-content: space-between;
                     flex-wrap: wrap;
                     flex-shrink: 0;
+                    position: relative;
                     >.flexElement{
                         width: 48%;
                         height: 100px;
@@ -197,23 +184,72 @@ main {
                             padding: 0 20px;
                             cursor: pointer;
                             .iconDiv{
-                                width: 60px;
-                                height: 60px;
+                                min-width: 60px;
+                                min-height: 60px;
                                 border-radius: 50%;
                                 background: rgba($color: #4A3AFF, $alpha: 0.15);
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
                             }
+                            >span{
+                                font-weight: 500;
+                                font-size: 18px;
+                                line-height: 20px;
+                                color: #170F49;
+                            }
                         }
+                    }
+                    .secondError{
+                        position: absolute;
+                        top: -30px;
+                        left: 0;
+                        color: red;
                     }
                 }
             }
             .thirdPage{
                 display: none;
+                >.header{
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 35px;
+                    color: #170F49;
+                    margin-bottom: 7px;
+                }
+                >.description{
+                    font-size: 18px;
+                    line-height: 30px;
+                    color: #6F6C90;
+                    margin-bottom: 39px;
+                }
             }
             .fourthPage{
                 display: none;
+            }
+            >.prevBtn{
+                bottom: -112px;
+                left: -45px;
+                color: #4A3AFF;
+                background: #fff;
+                border: 1px solid #4A3AFF;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 20px;
+            }
+            >button{
+                position: absolute;
+                background: #4A3AFF;
+                box-shadow: 0px 3px 12px rgba(74, 58, 255, 0.18);
+                border-radius: 56px;
+                bottom: -112px;
+                right: -45px;
+                width: 165px;
+                height: 50px;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 20px;
+                color: #FFFFFF;
             }
         }
     }

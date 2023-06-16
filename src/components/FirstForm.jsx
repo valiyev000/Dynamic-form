@@ -4,9 +4,11 @@ import emailIcon from '../images/emailIcon.svg'
 import phoneIcon from '../images/phoneIcon.svg'
 import companyIcon from '../images/companyIcon.svg'
 
-export default function FirstForm({ pageCount, formik, setPageCount}) {
+export default function FirstForm({ pageCount, formik}) {
 
     console.log("FirstForm render");
+
+
 
 
     
@@ -89,7 +91,6 @@ export default function FirstForm({ pageCount, formik, setPageCount}) {
                         <small className="errorMessage">{formik.touched.company && formik.errors.company && formik.errors.company}</small>
                     </div>
                 </div>
-                <button onClick={formik.isValid ? () => setPageCount((prev) => prev + 1) : null}>Next Step</button>
             </div>
         </section>
     )

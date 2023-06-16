@@ -8,6 +8,11 @@
   font-family: 'Inter', sans-serif;
 }
 
+*::selection{
+  background: red;
+  color: white;
+}
+
 a{
   display: inline-block;
   text-decoration: none;

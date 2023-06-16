@@ -4,8 +4,14 @@ import marketingIcon from '../images/marketingIcon.svg'
 import otherIcon from '../images/otherIcon.svg'
 import webDesignIcon from '../images/webDesignIcon.svg'
 
-export default function SecondForm({ pageCount, formik, setPageCount  }) {
+export default function SecondForm({ pageCount, formik, erroredClick}) {
     // console.log("SecondForm render");
+
+    
+
+    
+
+
     return (
         <section className='secondPage page' style={{display:pageCount === 2 ? "block" : "none"}}>
             <div className="header">Our services</div>
@@ -70,8 +76,8 @@ export default function SecondForm({ pageCount, formik, setPageCount  }) {
                         </div>
                         <span>Other</span>
                     </label>
-                    <div className="sample">{pageCount}</div>
                 </div>
+                <small className="secondError">{erroredClick >= 1 && formik.touched.services && formik.errors.services && formik.errors.services}</small>
             </div>
         </section>
     )
