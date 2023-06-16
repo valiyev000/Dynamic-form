@@ -4,50 +4,20 @@ import emailIcon from '../images/emailIcon.svg'
 import phoneIcon from '../images/phoneIcon.svg'
 import companyIcon from '../images/companyIcon.svg'
 
-export default function FirstForm({ pageCount, useFormik, Yup, setPageCount }) {
+export default function FirstForm({ pageCount, formik, setPageCount}) {
 
     console.log("FirstForm render");
 
+
     
 
-    const firstFormValidation = Yup.object().shape(
-        {
-            name: Yup.string("*Only text").required("*Required").min(5, "*Min 5 letter required"),
-            email: Yup.string("*Only text").required("*Required").email("*Not an email"),
-            phone: Yup.string("*Not a number").required("*Required").min(10, "*Min 10").max(10, "Max 10"),
-            company: Yup.string("*Only text").required("*Required")
-        }
-    )
-
-    const formik = useFormik(
-        {
-            initialValues: {
-                name: '',
-                email: '',
-                phone: '',
-                company: '',
-            },
-            validateOnMount: true,
-            onSubmit: (e)=> {
-                console.log(e)
-            },
-            validationSchema: firstFormValidation
-        }
-    )
-
-        if (formik.isValid) {
-            console.log(true);
-        } else {
-            console.log(false)
-        }
-    
 
     return (
-        <section className='firstForm form' style={{ display: pageCount === 1 ? "block" : "none" }}>
+        <section className='firstPage page' style={{ display: pageCount === 1 ? "block" : "none" }}>
             <div className="header">Contact details</div>
             <div className="description">Lorem ipsum dolor sit amet consectetur adipisc.</div>
-            <form action="#" onSubmit={formik.handleSubmit}>
-                <div className="formElement">
+            <div className="flexContainer">
+                <div className="flexElement">
                     <label htmlFor="name">Name</label>
                     <div className="inputDiv">
                         <input
@@ -65,7 +35,7 @@ export default function FirstForm({ pageCount, useFormik, Yup, setPageCount }) {
                         <small className="errorMessage">{formik.touched.name && formik.errors.name && formik.errors.name}</small>
                     </div>
                 </div>
-                <div className="formElement">
+                <div className="flexElement">
                     <label htmlFor="email">Email</label>
                     <div className="inputDiv">
                         <input
@@ -83,7 +53,7 @@ export default function FirstForm({ pageCount, useFormik, Yup, setPageCount }) {
                         <small className="errorMessage">{formik.touched.email && formik.errors.email && formik.errors.email}</small>
                     </div>
                 </div>
-                <div className="formElement">
+                <div className="flexElement">
                     <label htmlFor="phone">Phone Number</label>
                     <div className="inputDiv">
                         <input
@@ -101,7 +71,7 @@ export default function FirstForm({ pageCount, useFormik, Yup, setPageCount }) {
                         <small className="errorMessage">{formik.touched.phone && formik.errors.phone && formik.errors.phone}</small>
                     </div>
                 </div>
-                <div className="formElement">
+                <div className="flexElement">
                     <label htmlFor="company">Company</label>
                     <div className="inputDiv">
                         <input
@@ -119,8 +89,8 @@ export default function FirstForm({ pageCount, useFormik, Yup, setPageCount }) {
                         <small className="errorMessage">{formik.touched.company && formik.errors.company && formik.errors.company}</small>
                     </div>
                 </div>
-                <input type="submit" value="Submit" onClick={formik.isValid ?()=>setPageCount((prev) => prev + 1):null} className='nextBtn' />
-            </form>
+                <button onClick={formik.isValid ? () => setPageCount((prev) => prev + 1) : null}>Next Step</button>
+            </div>
         </section>
     )
 }

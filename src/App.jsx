@@ -13,7 +13,41 @@ function App() {
 
   const [pageCount, setPageCount] = useState(1)
 
-  console.log(pageCount,"App render");
+  const formValidation = Yup.object().shape(
+    {
+      name: Yup.string("*Only text").required("*Required").min(5, "*Min 5 letter required"),
+      email: Yup.string("*Only text").required("*Required").email("*Not an email"),
+      phone: Yup.string("*Not a number").required("*Required").min(10, "*Min 10").max(10, "Max 10"),
+      company: Yup.string("*Only text").required("*Required"),
+      services: Yup.boolean().oneOf([true], "You must accept one of these")
+      
+    }
+  )
+
+  const formik = useFormik(
+    {
+      initialValues: {
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        services: ''
+      },
+      validateOnMount: true,
+      onSubmit: (e) => {
+        console.log(e)
+      },
+      validationSchema: formValidation
+    }
+  )
+
+
+
+  console.log(pageCount, "App render");
+  
+  
+
+
   return (
     <main>
       <div className="header">Get a project quote</div>
@@ -34,12 +68,12 @@ function App() {
           </div>
           <div className="pageCounter" style={{ background: (pageCount > 3) ? "#4A3AFF" : "#EFF0F6", color: (pageCount > 3) ? "#FFFFFF" : "#6F6C90" }}>4</div>
         </div>
-        <div className="dynamicWindow">
-          <FirstForm pageCount={pageCount} setPageCount={setPageCount} useFormik={useFormik} Yup={Yup} />
-          <SecondForm pageCount={pageCount} setPageCount={setPageCount} useFormik={useFormik} Yup={Yup} />
-          <ThirdForm pageCount={pageCount} setPageCount={setPageCount} useFormik={useFormik} Yup={Yup} />
-          <FourthForm pageCount={pageCount} setPageCount={setPageCount} useFormik={useFormik} Yup={Yup} />
-        </div>
+        <form action="#" onSubmit={formik.handleSubmit} className='dynamicWindow'>
+          <FirstForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
+          <SecondForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
+          <ThirdForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
+          <FourthForm pageCount={pageCount} formik={formik} setPageCount={setPageCount} />
+        </form>
       </div>
     </main>
   )

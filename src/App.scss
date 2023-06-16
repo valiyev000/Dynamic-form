@@ -7,7 +7,7 @@
 
 main {
     width: 550px;
-    margin: 70px 0;
+    margin: 70px 0 150px 0;
     >.header {
         font-weight: 700;
         font-size: 34px;
@@ -68,11 +68,11 @@ main {
         }
         .dynamicWindow{
             transition: 0.3s all ease-in-out;
-            .form{
+            .page{
                 width: 100%;
                 height: 100%;
             }
-            .firstForm{
+            .firstPage{
                 >.header{
                     font-weight: 700;
                     font-size: 24px;
@@ -86,12 +86,13 @@ main {
                     color: #6F6C90;
                     margin-bottom: 40px;
                 }
-                form{
+                .flexContainer{
                     display: flex;
                     justify-content: space-between;
                     flex-wrap: wrap;
                     flex-shrink: 0;
-                    .formElement{
+                    position: relative;
+                    .flexElement{
                         width: 47%;
                         margin-bottom: 34px;
                         >label{
@@ -136,38 +137,86 @@ main {
                             }
                         }
                     }
+                    >button{
+                        position: absolute;
+                        background: #4A3AFF;
+                        box-shadow: 0px 3px 12px rgba(74, 58, 255, 0.18);
+                        border-radius: 56px;
+                        bottom: -112px;
+                        right: -45px;
+                        width: 165px;
+                        height: 50px;
+                        font-weight: 700;
+                        font-size: 18px;
+                        line-height: 20px;
+                        color: #FFFFFF;
+                    }
                 }
             }
-            .secondForm{
+            .secondPage{
+                display: none;
+                >.header{
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 35px;
+                    color: #170F49;
+                    margin-bottom: 7px;
+                }
+                >.description{
+                    font-size: 18px;
+                    line-height: 30px;
+                    color: #6F6C90;
+                    margin-bottom: 39px;
+                }
+                >.flexContainer{
+                    display: flex;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+                    flex-shrink: 0;
+                    >.flexElement{
+                        width: 48%;
+                        height: 100px;
+                        margin-bottom: 20px;
+                        >input{
+                            display: none;
+                            &:checked+label{
+                                border: 2px solid #4A3AFF;
+                            }
+                        }
+                        >label{
+                            transition: 0.3s all ease-in-out;
+                            background: #FFFFFF;
+                            border: 2px solid transparent;
+                            box-shadow: 0px 2px 11px rgba(69, 65, 164, 0.06), 0px 4px 10px rgba(31, 37, 89, 0.07);
+                            border-radius: 16px;
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            width: 100%;
+                            height: 100%;
+                            padding: 0 20px;
+                            cursor: pointer;
+                            .iconDiv{
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 50%;
+                                background: rgba($color: #4A3AFF, $alpha: 0.15);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+                        }
+                    }
+                }
+            }
+            .thirdPage{
                 display: none;
             }
-            .thirdForm{
+            .fourthPage{
                 display: none;
             }
-            .fourthForm{
-                display: none;
-            }
-        }
-    }
-    >.buttonDiv{
-        margin-top: 30px;
-        display: flex;
-        justify-content: flex-end;
-        .nextBtn{
-            background: #4A3AFF;
-            box-shadow: 0px 3px 12px rgba(74, 58, 255, 0.18);
-            border-radius: 56px;
-            width: 165px;
-            height: 50px;
-            font-weight: 700;
-            font-size: 18px;
-            line-height: 20px;
-            color: #FFFFFF;
         }
     }
 }
 
 
-form{
-    border: 1px solid green;
-}
